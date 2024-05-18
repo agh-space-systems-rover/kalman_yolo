@@ -15,7 +15,7 @@
     # whether to convert incoming images to grayscale before inference
     grayscale: false
     # detection threshold
-    confidence_threshold: 0.5
+    confidence_threshold: 0.8
     # list of class names
     class_names:
     - bottle
