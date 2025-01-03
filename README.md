@@ -10,6 +10,6 @@ Model weights and configs for [yolo_ros](https://github.com/agh-space-systems-ro
     - `rgbd_ids=(space separated camera names, e.g. d455_front)`
     - `config=(name of config file without .yaml suffix)`
 
-## Training a Model
+## Adding a new Model
 
-Use the [`yolo-gym`](https://github.com/agh-space-systems-rover/yolo-gym) repository to train a model and export the PyTorch weight here to the `models` directory. Then create a new config file in the `config` directory. Remember to update the parameters, in particular: `model`, `class_names`, `class_radii`.
+Use [`yolo-gym`](https://github.com/agh-space-systems-rover/yolo-gym) to train a model and copy the PyTorch weights over here to the `models` directory. Then create a new config file in the `config` directory. Remember to update the parameters, in particular: `model`, `class_names`, `class_radii`.

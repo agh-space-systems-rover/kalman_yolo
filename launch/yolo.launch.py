@@ -9,6 +9,10 @@ from launch.substitutions import LaunchConfiguration
 from launch_ros.descriptions import ComposableNode, ParameterFile
 
 
+def find_configs() -> set[str]:
+    config_path = get_package_share_path("kalman_yolo") / "config"
+    return {x.stem for x in config_path.glob("*.yaml")}
+
 def launch_setup(context):
     rgbd_ids = [
         x
@@ -59,11 +63,12 @@ def generate_launch_description():
         [
             DeclareLaunchArgument(
                 "rgbd_ids",
-                description="Space-separated IDs of the depth cameras to use.",
                 default_value="",
+                description="Space-separated IDs of the depth cameras to use.",
             ),
             DeclareLaunchArgument(
                 "config",
+                choices=find_configs(),
                 description="name of the configuration to load",
             ),
             OpaqueFunction(function=launch_setup),
