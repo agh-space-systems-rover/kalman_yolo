@@ -13,6 +13,7 @@ def find_configs() -> set[str]:
     config_path = get_package_share_path("kalman_yolo") / "config"
     return {x.stem for x in config_path.glob("*.yaml")}
 
+
 def launch_setup(context):
     rgbd_ids = [
         x
@@ -33,10 +34,10 @@ def launch_setup(context):
             [
                 (f"color{i}", f"{rgbd_id}/color/image_raw"),
                 (f"color{i}/compressed", f"{rgbd_id}/color/image_raw/compressed"),
-                (f"depth{i}", f"{rgbd_id}/aligned_depth_to_color/image_raw"),
+                (f"depth{i}", f"{rgbd_id}/depth/image_raw"),
                 (
                     f"depth{i}/compressed",
-                    f"{rgbd_id}/aligned_depth_to_color/image_raw/compressed",
+                    f"{rgbd_id}/depth/image_raw/compressed",
                 ),
                 (f"info{i}", f"{rgbd_id}/color/camera_info"),
                 (f"detections", f"yolo_detections"),
