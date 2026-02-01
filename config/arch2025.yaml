@@ -11,7 +11,7 @@
     # detection frequency; Hz
     rate: 10.0
     # path to YOLO model weights in PT format (required)2
-    model: $(find-pkg-share kalman_yolo)/models/arch2025.pt
+    model: $(find-pkg-share kalman_yolo)/models/arch2025.onnx
     # whether to convert incoming images to grayscale before inference
     grayscale: false
     # detection threshold
