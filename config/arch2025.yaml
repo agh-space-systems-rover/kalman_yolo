@@ -26,10 +26,10 @@
 
     # average real life half-width of each class in meters
     class_radii:
-    - 0.06
-    - 0.06
-    - 0.06
-    - 0.06
+    - 0.075
+    - 0.075
+    - 0.075
+    - 0.075
     # maximum 3D distance between two detections of the same class to consider them the same
     merge_radius: 2.0
     # number of history frames to use for temporal filtering
