@@ -26,7 +26,10 @@ def launch_setup(context):
             str(get_package_share_path("kalman_yolo") / "config" / f"{config}.yaml"),
             allow_substs=True,
         ),
-        {"num_cameras": len(rgbd_ids)},
+        {
+            "num_cameras": len(rgbd_ids),
+            "rgbd_ids": rgbd_ids,
+        },
     ]
     remappings = sum(
         [
