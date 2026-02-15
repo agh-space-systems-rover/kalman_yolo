@@ -9,7 +9,7 @@
     color_transport: compressed
     depth_transport: compressedDepth
     # detection frequency; Hz
-    rate: 1.0
+    rate: 20.0
     # path to YOLO model weights in PT format (required)
     model: $(find-pkg-share kalman_yolo)/models/arch2025.onnx
     # whether to convert incoming images to grayscale before inference
