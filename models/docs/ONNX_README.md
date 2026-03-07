@@ -19,3 +19,21 @@ As a workaround, you can edit the ONNX graph manually so the concatenated tensor
 	![Concat section example](image.png)
 3. If tensor shapes do not match, duplicate/copy the required tensor slice to match the expected dimensions. (It could be done by [onnx-modifier](https://github.com/ZhangGe6/onnx-modifier?tab=readme-ov-file))
 4. Save the updated ONNX model.
+
+
+NOTE: steps 2-4 may be done in the following way:
+```bash
+export INPUT_ONNX="arch2025.onnx"
+export OUTPUT_ONNX="arch2025_new.onnx"
+protoc --decode onnx.ModelProto onnx.proto < $INPUT_ONNX > onnx_dump.txt
+vim onnx_dump.txt  # Edit what you need to edit
+protoc --encode onnx.ModelProto onnx.proto < onnx_dump.txt > arch2025_new.onnx
+```
+
+
+In one case, it was enough to add a `dims` field, then concatenate the
+`raw_data` field so that it's 4x the original length:
+```
+    dims: 1
+    dims: 4 # Added
+```
