@@ -16,7 +16,7 @@ def find_configs() -> set[str]:
 def launch_setup(context):
     # Retrieve the raw space-separated string of camera IDs
     rgbd_ids_str = LaunchConfiguration("rgbd_ids").perform(context)
-    
+
     rgbd_ids = [
         x
         for x in rgbd_ids_str.split(" ")
@@ -32,7 +32,7 @@ def launch_setup(context):
         ),
         {"num_cameras": len(rgbd_ids)},
     ]
-    
+
     remappings = sum(
         [
             [
@@ -61,19 +61,20 @@ def launch_setup(context):
             executable="yolo_detect_auto_activate",
             parameters=parameters,
             remappings=remappings,
-        ),
-        Node(
-            package="kalman_arc",
-            executable="darkest_boulder",
-            name="darkest_boulder_filter",
-            parameters=[
-                {
-                    "rgbd_ids": rgbd_ids_str,
-                    "max_distance": max_distance,
-                }
-            ],
-            output="screen",
-        ),
+        )
+        # ,
+        # Node(
+        #     package="kalman_arc",
+        #     executable="darkest_boulder",
+        #     name="darkest_boulder_filter",
+        #     parameters=[
+        #         {
+        #             "rgbd_ids": rgbd_ids_str,
+        #             "max_distance": max_distance,
+        #         }
+        #     ],
+        #     output="screen",
+        # ),
     ]
 
 
