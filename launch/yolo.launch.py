@@ -1,12 +1,13 @@
 from ament_index_python import get_package_share_path
 from launch import LaunchDescription
-from launch_ros.actions import Node
+from launch_ros.actions import Node, LoadComposableNodes
 from launch.actions import (
     DeclareLaunchArgument,
     OpaqueFunction,
 )
 from launch.substitutions import LaunchConfiguration
-from launch_ros.descriptions import ParameterFile
+from launch_ros.descriptions import ComposableNode, ParameterFile
+
 
 def find_configs() -> set[str]:
     config_path = get_package_share_path("kalman_yolo") / "config"
@@ -14,17 +15,13 @@ def find_configs() -> set[str]:
 
 
 def launch_setup(context):
-    # Retrieve the raw space-separated string of camera IDs
-    rgbd_ids_str = LaunchConfiguration("rgbd_ids").perform(context)
-
     rgbd_ids = [
         x
-        for x in rgbd_ids_str.split(" ")
+        for x in LaunchConfiguration("rgbd_ids").perform(context).split(" ")
         if x != ""
     ]
     config = LaunchConfiguration("config").perform(context)
 
-    # Base parameters loaded from the specified YAML configuration file
     parameters = [
         ParameterFile(
             str(get_package_share_path("kalman_yolo") / "config" / f"{config}.yaml"),
@@ -32,7 +29,6 @@ def launch_setup(context):
         ),
         {"num_cameras": len(rgbd_ids)},
     ]
-
     remappings = sum(
         [
             [
@@ -53,8 +49,6 @@ def launch_setup(context):
         [],
     )
 
-    max_distance = float(LaunchConfiguration("max_distance").perform(context))
-
     return [
         Node(
             package="yolo_ros",
@@ -62,19 +56,6 @@ def launch_setup(context):
             parameters=parameters,
             remappings=remappings,
         )
-        # ,
-        # Node(
-        #     package="kalman_arc",
-        #     executable="darkest_boulder",
-        #     name="darkest_boulder_filter",
-        #     parameters=[
-        #         {
-        #             "rgbd_ids": rgbd_ids_str,
-        #             "max_distance": max_distance,
-        #         }
-        #     ],
-        #     output="screen",
-        # ),
     ]
 
 
@@ -90,11 +71,6 @@ def generate_launch_description():
                 "config",
                 choices=find_configs(),
                 description="name of the configuration to load",
-            ),
-            DeclareLaunchArgument(
-                "max_distance",
-                default_value="5.0",
-                description="Maximum boulder distance in meters (global_frame).",
             ),
             OpaqueFunction(function=launch_setup),
         ]
