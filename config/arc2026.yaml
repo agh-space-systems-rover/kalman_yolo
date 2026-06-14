@@ -19,10 +19,10 @@
     # whether to convert incoming images to grayscale before inference
     grayscale: false
     # detection threshold
-    confidence_threshold: 0.7
+    confidence_threshold: 0.3
     # list of class names
     class_names:
-    - obiekt
+    - rock
   
 
     # average real life half-width of each class in meters
@@ -39,3 +39,4 @@
     # Publish annotated images on annotatedX topics.
     publish_annotated: true
     annotated_transport: compressed
+    use_luma_as_id: true
