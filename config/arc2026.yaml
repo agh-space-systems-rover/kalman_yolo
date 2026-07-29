@@ -15,15 +15,16 @@
     # detection frequency; Hz
     rate: 2.0 # change to 2 fps
     # path to YOLO model weights in PT format (required)2
-    model: $(find-pkg-share kalman_yolo)/models/final_yolo_tarc.pt
+    # model: $(find-pkg-share kalman_yolo)/models/final_yolo_tarc.pt
+    # model: $(find-pkg-share kalman_yolo)/models/last.pt
+    model: $(find-pkg-share kalman_yolo)/models/arc_2026_resiris_synth.pt
     # whether to convert incoming images to grayscale before inference
     grayscale: false
     # detection threshold
-    confidence_threshold: 0.3
+    confidence_threshold: 0.1
     # list of class names
     class_names:
     - rock
-  
 
     # average real life half-width of each class in meters
     class_radii:
