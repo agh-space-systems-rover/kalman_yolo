@@ -17,7 +17,7 @@
     # path to YOLO model weights in PT format (required)2
     # model: $(find-pkg-share kalman_yolo)/models/final_yolo_tarc.pt
     # model: $(find-pkg-share kalman_yolo)/models/last.pt
-    model: $(find-pkg-share kalman_yolo)/models/arc_2026_resiris_synth.pt
+    model: $(find-pkg-share kalman_yolo)/models/arc_2026_resiris_synth_v2.pt
     # whether to convert incoming images to grayscale before inference
     grayscale: false
     # detection threshold
