@@ -13,15 +13,15 @@
     color_transport: compressed
     depth_transport: compressedDepth
     # detection frequency; Hz
-    rate: 10.0 # change to 2 fps
+    rate: 15.0 # change to 2 fps
     # path to YOLO model weights in PT format (required)2
     # model: $(find-pkg-share kalman_yolo)/models/final_yolo_tarc.pt
     # model: $(find-pkg-share kalman_yolo)/models/last.pt
-    model: $(find-pkg-share kalman_yolo)/models/erc2026_stones.pt
+    model: $(find-pkg-share kalman_yolo)/models/erc2026_stones_v2.pt
     # whether to convert incoming images to grayscale before inference
     grayscale: false
     # detection threshold
-    confidence_threshold: 0.5
+    confidence_threshold: 0.6
     # list of class names
     class_names:
     - stone
@@ -29,8 +29,13 @@
     # average real life half-width of each class in meters
     class_radii:
     - 0.1
-    # maximum 3D distance between two detections of the same class to consider them the same
-    merge_radius: 1.0 #change from 2
+    # The arm camera is connected to base_link in both simulation and hardware.
+    # Using odom here caused failed transforms and unstable merge positions.
+    world_frame: base_link
+    # Keep nearby stones as separate detections. YOLO NMS already removes
+    # duplicate boxes for one object, so a large same-class merge radius would
+    # incorrectly place one averaged box between multiple rocks.
+    merge_radius: 0.05
     # number of history frames to use for temporal filtering
     temporal_window: 1
     # number of times a detection must be present in the history to pass through the filter; Must be less than or equal to temporal_window. Setting it to 0 will result in lack of entry filtering and setting it to temporal_window value will provide no exit filtering. Entry filtering is useful for preventing false positives from being reported, while exit filtering is useful for preventing existing detections from jumping around and disappearing. If you are not sure what value to use, choose temporal_window / 2 which corresponds to a detection being present half of the time.
