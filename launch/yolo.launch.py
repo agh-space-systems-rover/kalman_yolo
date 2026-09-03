@@ -40,6 +40,7 @@ def launch_setup(context):
                     f"{rgbd_id}/depth/image_raw/compressed",
                 ),
                 (f"info{i}", f"{rgbd_id}/color/camera_info"),
+                (f"contours{i}", f"{rgbd_id}/yolo_contours"),
                 (f"detections", f"yolo_detections"),
                 (f"annotated{i}", f"{rgbd_id}/yolo_annotated"),
                 (f"annotated{i}/compressed", f"{rgbd_id}/yolo_annotated/compressed"),
