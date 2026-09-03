@@ -1,0 +1,30 @@
+/**:
+  ros__parameters:
+    subscribe_depth: false
+    color_transport: raw
+    depth_transport: raw
+    rate: 2.0
+    model: $(find-pkg-share kalman_yolo)/models/panel_detection.pt
+    device: cpu
+    grayscale: false
+    confidence_threshold: 0.5
+    class_names:
+      - aruco
+      - breakers
+      - lights
+      - magnet
+      - metal_bar
+      - plug
+      - rotary_big
+      - rotary_small
+      - socket
+    class_radii: [0.025, 0.025, 0.025, 0.025, 0.025, 0.025, 0.025, 0.025, 0.025]
+    world_frame: base_link
+    merge_radius: 0.05
+    temporal_window: 1
+    temporal_threshold: 1
+    publish_tf: false
+    publish_annotated: true
+    annotated_transport: raw
+    publish_contours: true
+    contour_simplification_px: 1.5
